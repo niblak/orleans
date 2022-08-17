@@ -1,8 +1,12 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 using Orleans;
+using Orleans.Serialization;
 using TestExtensions;
 using UnitTests.GrainInterfaces;
 using UnitTests.Grains;
@@ -18,6 +22,21 @@ namespace Tester.CodeGenTests
     {
         public GeneratorGrainTest(DefaultClusterFixture fixture) : base(fixture)
         {
+        }
+
+        [Fact]
+        public async Task CrashMe()
+        {
+            var grain = this.GrainFactory.GetGrain<ISerializationGenerationGrain>(GetRandomGrainId());
+
+            var largeObject = new
+            {
+                LargeArray = new List<string>(Enumerable.Range(0, 2700).Select(x => $"Item{x}").ToList()),
+            };
+
+            var serializedLargeObject = Newtonsoft.Json.JsonConvert.SerializeObject(largeObject);
+            var deserializedLargeObject = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(serializedLargeObject);
+            await grain.RoundTripObject(deserializedLargeObject);
         }
 
         [Fact]

@@ -37,7 +37,7 @@ namespace UnitTests.Serialization
             JObject output = fixture.SerializationManager.RoundTripSerializationForTesting(input);
             Assert.Equal(input.ToString(), output.ToString());
         }
-        
+
         [Fact, TestCategory("BVT"), TestCategory("Serialization"), TestCategory("JSON")]
         public void SerializationTests_Json_InnerTypes_TypeNameHandling()
         {
@@ -102,12 +102,14 @@ namespace UnitTests.Serialization
         /// <summary>
         /// A different way to configure Json serializer.
         /// </summary>
+        /*
         [Serializer(typeof(JObject))]
         [Serializer(typeof(JArray))]
         [Serializer(typeof(JToken))]
         [Serializer(typeof(JValue))]
         [Serializer(typeof(JProperty))]
         [Serializer(typeof(JConstructor))]
+        */
         public class JsonSerializationExample2
         {
             internal static readonly JsonSerializerSettings Settings = new JsonSerializerSettings

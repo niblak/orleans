@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using Orleans.CodeGeneration;
 using Orleans.Serialization;
@@ -48,7 +48,7 @@ namespace DefaultCluster.Tests.General
             Assert.Equal(input.ToString(), output.ToString());
         }
 
-        [Serializer(typeof(JObject))]
+        // [Serializer(typeof(JObject))]
         public class JObjectSerializationExample1
         {
             [CopierMethod]
